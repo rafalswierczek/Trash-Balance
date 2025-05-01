@@ -1,0 +1,1659 @@
+; Some of Trash's game balance resides here.
+; Do not modify balance.txt.  If you do, the game will
+; overwrite it when at the title screen.
+
+[RESOURCE_GATHERING]		;  this is a block
+HumanTrashStartGame = 150	;  amount of trash Human players have at start
+MutantTrashStartGame = 150
+HumanGasStartGame = 50		;  amount of gas Human players have at start
+MutantPeopleStartGame = 18
+RefineAmount = 1		;  amount gotten at once from refinery
+RefineryRate = 1500		;  lower is faster
+CapturedHutRate = 4500  ;  rate of harvesting people
+HumanTrashHarvestDelay = 250	;  humans's trash harvest rate - higher is slower
+HumanTrashUnloadDelay =	150	;  higher is slower
+MutantTrashHarvestDelay	= 400	;  mutant's trash harvest rate - higher is slower
+MutantTrashUnloadDelay = 200	;  higher is slower
+MutantPeopleHarvestDelay = 2400	;  mutant's people harvest rate - higher is slower
+MutantPeopleUnloadDelay	= 2800	;  higher is slower
+CargoSpaceUsedPerTrash = 1	;  controls how much trash can be carried at once
+CargoSpaceUsedPerPeople	= 2	;  controls how many people can be carried at once
+TrashPileAmount	= 30		;  how much trash the average starting pile has
+DumptrucksAtStart = 5		;  how many trucks player has at start of game
+ThrallsAtStart = 7		    ;  how many thralls player has at start of game
+RepairStructureCost = 1.0	;  how much does it cost to repair a structure in relation to it's original cost
+
+[MISC]
+GameAges = 0, 0			; when does the each game age start?
+RangeToAttackAir = 6.0		; range needed to attack air units if HitAir = NeedRange
+FireBurnDamage = 10.0		; damage per second
+FriendlyFirePenalty = 1.5	; factor describign how much friendly-fire negatively affects score
+FootRoadFactor = 0.70		; time factor for units with feet traveling on roads - lower is faster
+StackedResearchTimeFactor = 0.25 ; how much faster or slower does it take for level 2+ of research techs?
+SiteDropRate = 0.0		    ; what is the chance of a research site being generated if trash is producing during the game
+SiteHitPointsDrop = 1.0     ; for sites that are destructable, used sites have less hp than unused ones.  The higher this value, the lower the hp of used sites.
+DisassembleRate_Friendly = 75   ; hp per sec removed for disassembling a friendly structure
+DisassembleRate_Enemy = 2.5	; disassemble rate for enemy structures
+DisassembleRate_Walls = 2.5
+FlameResistanceForMetalUnits = 0.0  ; number of innate flame resistance upgrades for units encased in metal (cars, tanks, extenders, ect).
+GlobalHitPointModifier_Units = 1.0          ; globally modify the hitpoints of all units
+GlobalHitPointModifier_Structures = 1.0     ; globally modify the hitpoints of all structures
+
+[STRUCTURE_DEFAULTS]
+FlameResistance = 0.66667
+PiercingResistance = 6
+DestroySite = off ; on, non-gas, off,  - if this is a site using building, does the destruction of the building consume the research site?
+
+[TEAMMATES_APART]
+BaseSitesGas_Human = 0		; how many gas sites start in your initial base -- if too many, they won't fit on certain maps
+BaseSitesMetal_Human = 1
+BaseSitesToxic_Human = 1
+BaseHutCount_Human = 1		; how many Huts should be there in your initial base
+BaseSitesGas_Mutant = 1
+BaseSitesMetal_Mutant = 1
+BaseSitesToxic_Mutant = 1
+BaseHutCount_Mutant = 0
+BaseTrashCount_Human = 8		; how much Trash should be given to the player initially
+BaseTrashCount_Mutant = 8
+
+[TEAMMATES_TOGETHER]		; when teammates are together -AND- a team has at least three people
+BaseSitesGas_Human = 0
+BaseSitesMetal_Human = 1
+BaseSitesToxic_Human = 1
+BaseHutCount_Human = 1
+BaseSitesGas_Mutant = 1
+BaseSitesMetal_Mutant = 1
+BaseSitesToxic_Mutant = 1
+BaseHutCount_Mutant = 0
+BaseTrashCount_Human = 8
+BaseTrashCount_Mutant = 8
+
+[TECH]
+TechDropDefault = On      ; either on or off.  this default value can be overridden using "TechDrop"
+TechDropExpireTime = 20.0 ; in minutes
+TechUsageScaled = Off     ; default setting of whether tech usage is scaled by how good the unit is
+TechsReserve = 3 ; how many techs to reserve for player's own units, anything over this may be shared with teammates
+TechsInitial = 5 ; default number of techs a research building initially has, when first built - can be overriden
+TechProductionTime = 3500 ; default production time for techs - can be overriden
+TechProductionModifier_IfOld = 1.0 ; after a certain amount of tech is produced, production rates change.  The rate change occurs after the amount reaches TechsInitial.
+TechProduction_GlobalModifier = 1.0 ; change the TechProductionTime of everything in the game using this factor
+
+;
+; For Damage and Area upgrades this is the formula:
+; fRaw * (1.0f + (Factor * Upgrades)) ^ Exponent
+;
+[UPGRADE_IMPROVEMENT]
+DamageFactor = 1.0
+DamageExponent = 0.433
+AreaFactor = 1.2
+AreaExponent = 0.55
+MutantDamageBenefitFromHumans = 1.0
+MutantRangeBenefitFromHumans = 1.0
+MutantAreaBenefitFromHumans = 1.0
+AttackClassCountFactor=1.0,0.5,0.33333,0.25  ; if a weapon has multiple weapon classes, this modifies how much benefit weapon gets per class
+
+
+[RANGE_CLASSES]
+Melee=1.95,4,5,6 ; use 1.95 for level 1 melee
+Short=6,7,8,9
+Medium=7,8,9,10
+Long=8,9,10,11
+VeryLong=9,10,11,12
+ExtraLevel=0.5     ; how range is improved at the high levels, for levels beyond the levels specified.  0.5 means two upgrades needed per range improvement.
+
+
+;
+;  Unit Settings Reference
+;
+;HitPoints - starting hitpoints of unit
+;TrashCost - trash required to build unit
+;GasCost - gas requried to build unit; N/A for Mutants
+;PeopleCost - people required to build unit; N/A for Humans
+;BuildTime - time to construct unit; 100 = one sec
+;TopSpeed - speed at which unit moves
+;Acceleration - how quickly unit reaches speed
+;RoadFactor - time factor on roads - lower is faster; only applies for vehicle units
+;Radius - how large unit is; large units are easier to hit for inaccurate weapons
+;Radius_Moving - same as Radius, but applies when unit is moving
+;AttackDamage - amount of damage per attack -- not necessarily damage per second
+;AttackDamage_Moving - damage used when moving
+;AttackRange - range of unit; Can be Melee, Short, Medium, Long, VeryLong, or it can be custom
+;AttackMinRange - optional; default is 0.9 to prevent units from trying to attack a target on the same spot
+;AttackArea - area of effect; use 0.0 for weapons without AOE
+;AutoMinimizeArea - default is 0.2; -1 means off; area-of-effect of weapon is automatically reduced (down to specified amount) to avoid friendly-fire; only applies to friendly-fire weapons
+;FriendlyFire - default is on; if off weapon cannot harm friendlies
+;RunAndGun - default is on; if off then weapon cannot get Run-And-Gun
+;HitAir - default is on; if off, weapon cannot hit air unless unit is in the air ; if Never, then unit can never hit air.  if NeedRange, then RangeToAttackAir is considered.
+;MustDescendToHitGround - default is off.  If on, unit cannot hit the ground while levitating.
+;CanUseGrenades -- default is off.  If on, unit can use all grenade types (EMP, sticky bomb, etc).
+;TurretRotation - optional; how quickly weapon rotates; only applies to units with turrets
+;RateOfFireStart - delay before first attack; used to make attack animations look better; with Target Tracking this is forced to zero for launcher-type weapons; 100 = one sec
+;RateOfFireContinue - delay before all attacks after first; 100 = one sec
+;RateOfFireStart_Moving - same as RateOfFireStart, but it applies when unit is moving
+;RateOfFireContinue_Moving - same as RateOfFireContinue, but it applies when unit is moving
+;AccuracyGround - Applies when attacking ground targets. See http://forums.inhumangames.com/viewtopic.php?t=7214
+;AccuracyAir - Applies when attacking air targets (flying, levitating, etc). See http://forums.inhumangames.com/viewtopic.php?t=7214
+;AccuracyCurveSpacingForX - default value is 0.1.  See http://forums.inhumangames.com/viewtopic.php?t=7214
+;AccuracyBonusFactorForAltitude - default value is 0.5.  How much of an accuracy bonus (or penalty) does this weapon get for being on higher ground?  Higher is better.
+;AccuracyBonusCloseRange - default value is 0.3.  How much of an accuracy bonus does this weapon get for being in close range?  Lower is better.
+;AccuracyBonusCloseRange_AirGroundMismatch - default value is 0.8.  Applies with attacking from air-to-ground or ground-to-air. Lower is better.
+;PopLimitScore - optional, overrides default setting.  1.0 = one gatling car.  AI uses this to assess value of units, so be careful with it.  Override default for free units or units with special hidden costs (like PK unit)
+;TechUsageScore - optional; how many upgrades unit uses per level; overrides default value, which is the pop-limit score.
+
+;----------------- HUMAN UNITS -----------------
+
+[FLAME_BIKE]
+HitPoints = 400
+TrashCost = 25
+GasCost	= 6
+BuildTime = 5500
+TopSpeed = 32.0
+Acceleration = 17.5
+RoadFactor = 0.45
+Radius = 25.0
+AttackClass = Flame
+AttackDamage = 7.0, 8.0, 9.0, 10.5, 11.0, 11.5, 12.75
+AttackDamage_Moving = 3.0, 3.5, 4.0, 4.25, 4.5, 4.75, 5.0
+AttackRange = 4,5,6,7
+AttackArea = 1.0, 1.3, 1.6, 1.8, 2.0, 2.2, 2.3
+HitAir = off
+MustDescendToHitGround = on
+CanUseGrenades = on
+AutoMinimizeArea = 0.4 ; default is 0.2; -1 means do not auto minimize aoe
+TurretRotation = 3.0
+RateOfFireStart	= 25
+RateOfFireContinue = 50
+AccuracyGround = -1		; -1 for perfect accuracy
+AccuracyAir = -1
+AfterburnStructures = 0.75	; what ratio of damage is done as afterburn for structures
+AfterburnUnits = 0.25		; for units -- the afterburn really only kicks in if DPS > FireBurnDamage
+TechUsageScore = 1.0
+
+[GATLING_CAR]
+HitPoints = 600
+TrashCost = 25
+GasCost	= 8
+BuildTime = 5000
+TopSpeed = 24.0
+Acceleration = 12.5
+RoadFactor = 0.40
+Radius = 40.0
+AttackClass = Piercing
+AttackDamage = 8.0, 9.2, 10.4, 11.0, 11.6, 12.2, 13.5
+AttackRange = Medium
+AttackArea = 0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.75
+TurretRotation = 3.0
+RateOfFireStart	= 10
+RateOfFireContinue = 50
+AccuracyGround = 0.8, 0.4, 0.1, 0.1, 0.1, 0.1, 0.075, 0.05, 0.025, 0.0
+AccuracyAir = 0.5, 0.8, 0.9, 1.0, 0.9, 0.8, 0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.0
+TechUsageScore = 1.0
+
+[TANK]
+HitPoints = 1200
+TrashCost = 55
+GasCost	= 15
+BuildTime = 7000
+TopSpeed = 18.0
+Acceleration = 7.0
+RoadFactor = 0.45
+Radius = 70.0
+ShotSpeed = 20.0
+AttackClass = Concussive, Explosive
+AttackDamage = 75.0, 87.0, 99.0, 105.0, 111.0, 117.0, 120.0
+AttackRange = Long
+AttackMinRange = 3.0
+AttackArea = 0.1, 0.175, 0.25, 0.325, 0.40, 0.45
+HitAir = off
+MustDescendToHitGround = on
+TurretRotation = 1.0
+RateOfFireStart	= 10
+RateOfFireContinue = 300
+RateOfFireContinue_Moving = 400
+AccuracyBonusCloseRange = 0.4
+AccuracyGround = 0.05, 0.1, 0.3, 0.7, 1.0, 0.8, 0.4, 0.2, 0.15, 0.1, 0.05, 0
+AccuracyAir    = 0.05, 0.1, 0.3, 0.7, 1.0, 0.8, 0.4, 0.2, 0.15, 0.1, 0.05, 0
+PiercingResistance  = 6.0	; number of innate bullet resistance upgrades
+TechUsageScore = 1.5
+
+[SUPER_TANK]
+HitPoints = 3000
+TrashCost = 0
+GasCost	= 0
+BuildTime = 21000
+TopSpeed = 18.0
+Acceleration = 5.0
+RoadFactor = 0.45
+Radius = 95.0
+ShotSpeed = 40.0
+AttackClass = Concussive, Explosive
+AttackDamage = 360, 420, 480, 510, 540, 570, 585
+SuperShotAttackDamage = 720, 840, 960, 1020, 1080, 1140, 1170
+AttackRange = VeryLong
+AttackMinRange = 3.0
+AttackArea = 1.0, 1.2, 1.4, 1.5, 1.6, 1.7, 1.75
+SuperShotAttackArea = 1.6, 1.75, 1.90, 1.95
+HitAir = off
+MustDescendToHitGround = on
+TurretRotation = 0.8
+RateOfFireStart	= 10
+RateOfFireContinue = 300
+RateOfFireContinue_Moving = 400
+SuperShotRateOfFireContinue = 6000
+AccuracyBonusCloseRange = 0.4
+AccuracyGround = 0.05, 0.1, 0.3, 0.7, 1.0, 0.8, 0.4, 0.2, 0.15, 0.1, 0.05, 0
+AccuracyAir    = 0.05, 0.1, 0.3, 0.7, 1.0, 0.8, 0.4, 0.2, 0.15, 0.1, 0.05, 0
+PiercingResistance  = 8.0	; number of innate bullet resistance upgrades
+PopLimitScore = 15
+TechUsageScore = 4.0
+
+[FLAME_TANK]
+HitPoints = 1200
+TrashCost = 55
+GasCost = 15
+BuildTime = 7500
+TopSpeed = 20.0
+Acceleration = 7.5
+RoadFactor = 0.45
+Radius = 70.0
+AttackClass = Flame
+AttackDamage = 7.0, 8.0, 9.0, 10.5, 11.5, 12.5, 13.75
+AttackDamage_Moving = 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0
+AttackRange = Short
+AttackArea = 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5
+AutoMinimizeArea = 0.4 ; default is 0.2; -1 means do not auto minimize aoe
+HitAir = off
+MustDescendToHitGround = on
+TurretRotation = 2.0
+RateOfFireStart	= 25
+RateOfFireContinue = 50
+AccuracyGround = -1
+AccuracyAir = -1
+AfterburnStructures = 0.75	; what ratio of damage is done as afterburn for structures
+AfterburnUnits = 0.25		; for units -- the afterburn really only kicks in if DPS > FireBurnDamage
+PiercingResistance = 2.0	; number of innate bullet resistance upgrades
+FlameResistance = 1.0		; number of innate flame resistance upgrades
+TechUsageScore = 1.5
+
+[DUMP_TRUCK]
+HitPoints = 700
+TrashCost = 30
+GasCost	= 6
+BuildTime = 3750
+TopSpeed = 18.0
+Acceleration = 6.0
+RoadFactor = 0.30
+Radius = 60.0
+CargoSize = 12
+RepairRate = 15.0 ; hp per sec
+TechUsageScore = 0.0
+
+[SEMI]
+HitPoints = 1000
+TrashCost = 40
+GasCost	= 20
+BuildTime = 6500
+TopSpeed = 18.0
+Acceleration = 5.0
+RoadFactor = 0.25
+Radius = 95.0
+AttackClass = Flame, Explosive
+AttackDamage = 50.0, 58.0, 66.0, 70.0, 74.0, 78.0, 80.0
+AttackRange = 15,17,19,21,23,25,27,29
+AttackMinRange = 8.0
+AttackArea = 1.5, 1.8, 2.1, 2.25, 2.4, 2.55, 2.625
+AutoMinimizeArea = -1 ; default is 0.2; -1 means do not auto minimize aoe
+RunAndGun = off
+HitAir = never
+TurretRotation = 0.7
+RateOfFireStart	= 0
+RateOfFireContinue = 100
+AccuracyGround = 0.9, 1.0, 0.9, 0.7, 0.5, 0.2, 0.1, 0.05, 0.025, 0.0
+AccuracyCurveSpacingForX = 0.5     ; increase spacing so we dont need a huge list of numbers in AccuracyGround
+AccuracyBonusFactorForAltitude = 0.8
+AccuracyBonusCloseRange = 0.4
+TechUsageScore = 2.0
+
+[FIRE_TRUCK]
+HitPoints = 500
+TrashCost = 25
+GasCost	= 10
+BuildTime = 3500
+HoseProtection = 0.5 ; damage reduced by 50%
+TopSpeed = 24.0
+Acceleration = 10.0
+RoadFactor = 0.30
+Radius = 55.0
+ShotSpeed = 15.0   ; for net throw
+AttackDamage = 0		; net throw aka	capture
+AttackRange = Medium    	; net throw
+AttackArea = 1.0, 1.2, 1.4, 1.5, 1.6, 1.7, 1.75   ; net throw
+FriendlyFire = Off
+HitAir = never
+RateOfFireStart	= 25		; net throw
+RateOfFireContinue = 1500	; net throw
+AccuracyGround = 0.5, 0.8, 0.9, 1.0, 0.8, 0.8, 0.4, 0.2, 0.1, 0
+CaptureBasisTime = 100          ; time = (1 + upgrades) * basis / radius_enemy;
+Requires = Fire Station
+TechUsageScore = 1.0
+
+[MECHANIC]
+HitPoints = 500
+TrashCost = 30
+GasCost	= 12
+BuildTime = 3500
+TopSpeed = 24.0
+Acceleration = 10.0
+RoadFactor = 0.30
+Radius = 55.0
+UpgradeDuration = 250
+HealRange = 8
+HealRateLevel1 = 3.0
+HealRateLevel2 = 4.0
+HealRateLevel3 = 4.5
+HealRateLevel4 = 5.0
+HealRateExtraLevels = 0.25	; amount increased per level above level 4
+Requires = Mechanic Depot
+TechUsageScore = 1.0
+
+[PEACE_KEEPER]
+CountProduced = 2 ; how many units are made at once
+HitPoints = 250
+TrashCost = 0
+GasCost	= 0
+BuildTime = 8000, 16000 ; build times, second number is for when factory is 'old'
+ProductionDropAfter = 6 ; after X peacekeepers are made, factory becomes 'old'
+TopSpeed = 18.0
+Acceleration = 15.0
+Radius = 15.0
+Radius_Moving = 20.0
+AttackClass = Piercing
+AttackDamage = 14.0, 16.0, 18.0, 20.0, 22.0, 25.0, 28.5
+AttackRange = 5,6,7,8
+AttackArea = 0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.75
+RateOfFireStart	= 50
+RateOfFireContinue = 150
+RateOfFireStart_Moving	= 100
+RateOfFireContinue_Moving = 225
+AccuracyGround = 1.0, 0.4, 0.15, 0.1, 0.075, 0.025, 0.0
+AccuracyAir = 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.0, 0.8, 0.6, 0.4, 0.2, 0.1, 0.05, 0.0
+PopLimitScore = 0.4
+TechUsageScore = 0.25
+
+[STINGER]
+CountProduced = 2 ; how many units are made at once
+HitPoints = 250
+TrashCost = 25
+GasCost = 6
+BuildTime = 12000
+ShotSpeed = 15.0
+TopSpeed = 18.0
+Acceleration = 15.0
+Radius = 15.0
+Radius_Moving = 20.0
+AttackClass = Explosive, Concussive
+AttackDamage = 60.0, 70.0, 80.0, 85.0, 90.0, 95.0, 97.5
+AttackMinRange = 3.0
+AttackRange = Long
+AttackArea = 0.1, 0.175, 0.25, 0.325, 0.4, 0.45
+RateOfFireStart	= 100
+RateOfFireContinue = 500
+RateOfFireContinue_Moving = 750
+AccuracyGround = 0.05, 0.1, 0.2, 0.3, 0.35, 0.4, 0.8, 1.0, 0.6, 0.2, 0.1, 0
+AccuracyAir    = 0.2, 0.4, 0.8, 1.0, 0.8, 0.4, 0.2, 0.1, 0.05, 0
+DisruptionDuration = 200
+PopLimitScore = 0.75
+TechUsageScore = 0.5
+
+[GUNSHIP]
+HitPoints = 600
+TrashCost = 40
+GasCost	= 12
+BuildTime = 6000
+TopSpeed = 28.0
+Acceleration = 17.5
+Radius = 60.0
+AttackClass = Piercing
+AttackDamage = 11.5, 13.5, 15.5, 16.5, 17.5, 18.5, 19.0
+AttackRange = Medium
+AttackArea = 0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.75
+TurretRotation = 2.0
+RateOfFireStart	= 10
+RateOfFireContinue = 50
+AccuracyGround = 0.0, 0.8, 1.5, 0.3, 0.2, 0.15, 0.1, 0.05, 0.025, 0.0125, 0
+AccuracyAir = 0.0, 0.8, 1.5, 0.3, 0.2, 0.15, 0.1, 0.05, 0.025, 0.0125, 0
+AccuracyBonusFactorForAltitude = 0.1
+TechUsageScore = 1.5
+
+[ZEPPELIN]
+HitPoints = 1000
+TrashCost = 15
+GasCost	= 5
+BuildTime = 3500
+TopSpeed = 30
+Acceleration = 17.5
+Radius = 95.0
+CargoSize = 281.0  ; how many units can be carried, 101 means this can carry 2 units with a radius of 50
+Requires = Engineering Research
+TechUsageScore = 1.0
+
+;----------------- MUTANT UNITS	-----------------
+
+[ROACH]
+HitPoints = 300
+BuildTime = 6000, 12000 ; spawn rate, second number is for when beacon is 'old'
+ProductionDropAfter = 4 ; after X roaches are made, the beacon's production slows
+TopSpeed = 30.0
+Acceleration = 17.5
+Radius = 30.0
+AttackClass = Piercing
+AttackDamage = 4.5, 5.3, 6.1, 6.5, 6.9, 7.3, 7.5
+AttackRange = Melee
+AttackArea = 0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.75
+HitAir = off
+MustDescendToHitGround = on
+RateOfFireStart	= 0	  ; roach has target tracking by default
+RateOfFireContinue = 50
+AccuracyGround = -1
+AccuracyAir = -1
+PopLimitScore = 0.75
+TechUsageScore = 0.5
+
+[THRALL]
+HitPoints = 400
+TrashCost = 20
+PeopleCost = 1
+BuildTime = 2500
+TopSpeed = 20.0
+Acceleration = 15.0
+Radius = 20.0
+CargoSize = 6
+RepairRate = 10.0 ; hp per sec
+TechUsageScore = 0.0
+
+[MIND_BLASTER]
+HitPoints = 400
+TrashCost = 20
+PeopleCost = 3
+BuildTime = 5500
+TopSpeed = 22.0
+Acceleration = 15.0
+Radius = 20.0
+AttackClass = Flame, Explosive
+AttackDamage = 30.0, 34.8, 39.6, 42.0, 44.4, 46.8, 48.0
+AttackRange = Short
+AttackArea = 1.5, 2.0, 2.4, 2.8, 3.0, 3.2, 3.4, 3.5
+RateOfFireStart	= 0 ; has target tracking by default
+RateOfFireContinue = 300
+RateOfFireStart_Moving	= 0
+RateOfFireContinue_Moving = 450
+AccuracyGround = -1
+AccuracyAir = -1
+CanUseGrenades = on
+DisruptionDuration = 800
+AfterburnStructures = 0.25	; what ratio of damage is done as afterburn for structures
+AfterburnUnits = 0.05		; for units -- the afterburn really only kicks in if DPS > FireBurnDamage
+TechUsageScore = 1.0
+
+[PROTEC]
+HitPoints = 600
+TrashCost = 35
+PeopleCost = 3
+BuildTime = 3500
+TopSpeed = 24.0
+Acceleration = 15.0
+Radius = 50.0
+MaxAuraProvide = 7		; max number of units that can receive the benefit of this unit's aura (this unit consume one aura use too)
+MaxAuraRange = 10
+Requires = Protec Upgrade
+TechUsageScore = 1.0
+
+[BRAWLER]
+HitPoints = 900
+TrashCost = 40
+PeopleCost = 4
+BuildTime = 6000
+TopSpeed = 26.0
+Acceleration = 15.0
+Radius = 60.0
+AttackClass = Concussive
+AttackDamage = 11.5, 13.5, 15.5, 16.5, 17.5, 18.5, 19.0
+AttackRange = Melee
+AttackArea = 0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.75
+HitAir = off
+MustDescendToHitGround = on
+RateOfFireStart	= 0
+RateOfFireContinue = 50
+AccuracyGround = -1
+AccuracyAir = -1
+TauntAreaOfEffect = 6.0
+TauntDuration =	1000		;  100 = one sec
+TauntCooldown =	3000		;  100 = one sec
+TechUsageScore = 1.5
+
+[SUPER_BRAWLER]
+HitPoints = 10000
+TrashCost = 0
+PeopleCost = 0
+BuildTime = 21000
+TopSpeed = 22.0
+Acceleration = 15.0
+Radius = 90.0
+AttackClass = Concussive
+AttackDamage = 60.0, 70.0, 80.0, 85.0, 90.0, 95.0, 97.5
+AttackRange = Melee
+AttackArea = 1.0, 1.2, 1.4, 1.5, 1.6, 1.7, 1.75
+HitAir = on
+RateOfFireStart	= 25
+RateOfFireContinue = 50
+AccuracyGround = -1
+AccuracyAir = -1
+PopLimitScore = 20
+TechUsageScore = 5.0
+
+[KARKINO]
+HitPoints = 600
+TrashCost = 35
+PeopleCost = 4
+BuildTime = 6000
+TopSpeed = 28.0
+Acceleration = 15.0
+Radius = 60.0
+AttackClass = Explosive, Concussive
+AttackDamage = 17.0, 19.0, 22.0, 25.0, 28.0, 31.0, 34.0
+AttackRange = Short
+AttackMinRange = 0.0  ; Allow Karkino to attack directly below it
+AttackArea = 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5
+HitAir = never
+RateOfFireStart	= 0 ; has target tracking by default
+RateOfFireContinue = 150
+RateOfFireContinue_Moving = 225
+AuraLevelModifer = 1.0 ; How do karkino upgrades compare to human AOE upgrades?  With 0.5, 2 karkino upgrades == 1 human area-of-effect upgrade
+MaxAuraProvide = 10		; max number of units that can receive the benefit of this unit's aura (this unit may consume one aura use too)
+MaxAuraRange = 15
+AccuracyGround = -1
+AccuracyAir = -1
+AccuracyBonusFactorForAltitude = 0.1
+Requires = Karkino Upgrade
+TechUsageScore = 1.5
+
+[AMPLICON]
+HitPoints = 1200
+TrashCost = 45
+PeopleCost = 5
+BuildTime = 6000
+TopSpeed = 28.0
+Acceleration = 15.0
+Radius = 50.0
+AttackClass = Piercing, Concussive
+AttackDamage = 25.0, 30.0, 35.0, 40.0, 45.0, 50.0, 55.0   ; damage is larger vs larger targets; this is the dmg vs radius of 40.0
+AttackRange = Long
+AttackArea = 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5
+MustDescendToHitGround = on
+RunAndGun = off
+RateOfFireStart	= 25
+RateOfFireContinue = 150
+ShotSpeed = 5.0
+AuraLevelModifer = 1.0   ;  How do amplicon upgrades compare to human dmg upgrades?  With 0.5, 2 amplicon upgrades == 1  human damage upgrade
+MaxAuraProvide = 10		; max number of units that can receive the benefit of this unit's aura (this unit may consume one aura use too)
+MaxAuraRange = 15
+AccuracyGround = 0.05, 0.1, 0.3, 0.7, 1.0, 0.8, 0.4, 0.2, 0.1, 0
+AccuracyAir    = 0.05, 0.1, 0.3, 0.7, 1.0, 0.8, 0.4, 0.2, 0.15, 0.1, 0.05, 0
+PiercingResistance = 3.71429   ; number of innate bullet resistance upgrades
+TechUsageScore = 1.5
+
+[EXTENDER]
+HitPoints = 600
+TrashCost = 30
+PeopleCost = 3
+BuildTime = 5000
+Radius = 40.0
+TopSpeed = 28.0
+Acceleration = 17.5
+AttackClass = Piercing
+AttackDamage = 8.0, 9.2, 10.4, 11.0, 11.6, 12.2, 12.5
+AttackRange = Medium
+AttackArea = 0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.75
+TurretRotation = 2.0    ; how fast extender rotates
+RateOfFireStart	= 10
+RateOfFireContinue = 50
+AuraLevelModifer = 1.0   ;  How do extender upgrades compare to human range upgrades?  With 0.5, 2 extender upgrades == 1 human range upgrade
+MaxAuraProvide = 10		; max number of units that can receive the benefit of this unit's aura (this unit consume one aura use too)
+MaxAuraRange = 15
+AccuracyGround = 0.8, 0.4, 0.1, 0.1, 0.1, 0.075, 0.05, 0.025, 0.0
+AccuracyAir = 0.5, 0.8, 0.9, 1.0, 0.9, 0.8, 0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.0
+TechUsageScore = 1.0
+
+[CHIEFTAIN]
+HitPoints = 750
+TrashCost = 35
+PeopleCost = 7
+BuildTime = 6500
+TopSpeed = 18.0
+Acceleration = 15.0
+Radius = 95.0
+AttackClass = Flame
+AttackDamage = 8.4, 9.84, 11.28, 12.0, 12.72, 13.44, 13.8
+AttackRange = 15,17,19,21,22,23,24,25
+AttackArea = 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0
+AutoMinimizeArea = -1 ; default is 0.2; -1 means do not auto minimize aoe
+RunAndGun = off
+HitAir = on
+RateOfFireStart	= 600
+RateOfFireContinue = 600
+AccuracyGround = -1
+AccuracyAir = -1
+ActivateLevitationDelay	= 500	; how long does it take to activate or deactivate levitation
+TechUsageScore = 2.0
+
+[GATE_TWINS]
+HitPoints = 300
+TrashCost = 30
+PeopleCost = 2
+BuildTime = 6000
+TopSpeed = 14.0
+Acceleration = 15.0
+Radius = 35.0
+TechUsageScore = 0.0
+
+[GATE_TWIN]  ;	once GATE_TWINS	place the first	gate, they then	become a GATE_TWIN
+HitPoints = 150
+TopSpeed = 7.0
+Acceleration = 15.0
+TimeToMakeGate = 3000
+Radius = 25.0
+TeleportPenalty = 5.0     ; gate twin's penalty for teleporting, when one twin is dead
+PopLimitScore = 2 ; limping version is a free unit, but considered a high value target
+TechUsageScore = 0.0
+
+;----------------- HUMAN TOWERS	-----------------
+
+[FLAME_TOWER]
+HitPoints = 2800
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 50
+AttackClass = Flame
+AttackDamage = 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0
+AttackRange = 9,10,11,12
+AttackRangeUpgradeOverride	= 0.5	; how range upgrades improve this weapon
+AttackArea = 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5
+AutoMinimizeArea = 0.4 ; default is 0.2; -1 means do not auto minimize aoe
+RunAndGun = off
+HitAir = off
+AttackMinRange = 0.0		; Allow armed hut to attack directly above it
+TurretRotation = 2.0
+RateOfFireStart	= 25		; give some time for effect to start up
+RateOfFireContinue = 50
+AccuracyGround = -1
+AccuracyAir = -1
+AfterburnStructures = 0.75	; what ratio of damage is done as afterburn for structures
+AfterburnUnits = 0.25		; for units -- the afterburn really only kicks in if DPS > FireBurnDamage
+
+[FLAK_TOWER]
+HitPoints = 1500
+TrashCost = 20
+BuildTime = 4000		; how long does it take to arm a hut?  100 = one sec
+PowerUsage = 50
+AttackClass = Piercing
+AttackDamage = 12.5, 14.5, 16.5, 18.5, 20.5, 22.5, 24.0
+AttackRange = 10,11,12,13
+AttackRangeUpgradeOverride	= 0.5	; how range upgrades improve this weapon
+AttackArea = 0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.75
+RunAndGun = off
+HitAir = on
+HitGround = off
+AttackMinRange = 0.0		; Allow armed hut to attack directly above it
+TurretRotation = 2.0
+RateOfFireStart	= 10		; give some time for effect to start up
+RateOfFireContinue = 50
+AccuracyAir = 0.5, 0.8, 0.9, 1.0, 0.9, 0.8, 0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.0
+
+[SUPER_GUN]
+GameAge = 2
+HitPoints = 2000
+TrashCost = 20
+BuildTime = 24000
+PowerUsage = 180
+AttackClass = Explosive
+AttackDamage = 1500.0, 1700.0, 1900.0, 2100.0, 2300.0, 2500.0, 2700.0
+AttackRange = 250,260,270,280,290,300,310,320,330,340,350
+AttackMinRange = 15.0
+AttackRangeUpgradeOverride = 0.5	; how range upgrades improve this weapon
+AttackArea = 10.0, 13.0, 16.0, 19.0, 22.0, 25.0
+AutoMinimizeArea = -1;  do lots of FF dmg
+RunAndGun = off
+HitAir = never
+TurretRotation = 0.0175
+RateOfFireStart	= 0
+RateOfFireContinue = 8000
+AccuracyGround = 0.2, 0.6, 0.8, 1.0, 0.9, 0.7, 0.5, 0.2, 0.1, 0.05, 0.025, 0.0  ; note that the accuracy of super gun shots improve as the super gun shoots in a particular area
+AccuracyCurveSpacingForX = 3.0     ; increase spacing so we dont need a huge list of numbers in AccuracyGround
+AccuracyBonusCloseRange = 0.8      ; program code already gives a slight range bonus for super gun
+ShotTrashCost =	0
+
+;----------------- MUTANT TOWERS -----------------
+
+[PIPE_TORPEDO]
+GameAge = 2
+HitPoints = 2000
+TrashCost = 20
+BuildTime = 18000
+PowerUsage = 180
+TopSpeed = 50.0
+Acceleration = 11000
+AttackClass = Explosive
+AttackDamage = 1000.0, 1160.0, 1320.0, 1400.0, 1480.0, 1560.0, 1600.0
+AttackRange = 200,220,235,245,250,253,255,257,258,259,260
+AttackMinRange = 15.0
+AttackRangeUpgradeOverride = 0.5	; how range upgrades improve this weapon
+AttackArea = 6.0, 7.0, 8.0, 9.0, 10.0, 10.5
+AutoMinimizeArea = -1;  do lots of FF dmg
+RunAndGun = off
+HitAir = never
+RateOfFireStart	= 0
+RateOfFireContinue = 8000
+AccuracyGround = 0.0				; note that the accuracy of pipe torpedo is 100%
+AccuracyCurveSpacingForX = 3.0		; increase spacing so we dont need a huge list of numbers in AccuracyGround
+AccuracyBonusCloseRange = 0.8
+ShotTrashCost =	0
+
+;----------------- MISC	STRUCTURES -----------------
+
+[PIPE]
+HitPoints = 500
+TrashCost = 1
+BuildTime = 100
+
+[HUT]
+HitPoints = -1
+PeopleAtStart = -1	;  -1 means unlimited
+
+[GAS_SITE]
+HitPoints = -1
+
+[METAL_SITE]
+HitPoints = -1
+
+[TOXIC_SITE]
+HitPoints = -1
+
+[SUPER_TOXIC_SITE]
+HitPoints = -1
+
+
+;----------------- HUMAN BUILDINGS -----------------
+
+;
+; Building Settings Reference
+;
+;Requires - optional; describes what building this requires
+;GameAge - what age is required to make the building. 2 means second age, 3 means third, default is 1 (first age)
+;HitPoints - number of hit points
+;TrashCost - cost of building
+;BuildTime - how long it takes to build
+;PowerUsage - optional; overrides setting for power used by building
+
+[SALVAGE_YARD]
+HitPoints = 3000
+TrashCost = 100
+BuildTime = 3000
+PowerUsage = 30
+ConcurrentUnloaders = 3    ; 0 for infinite
+UpgradeRange = 10
+UpgradeDuration = 100
+Units = Dump Truck
+Research = Detection
+
+[REFINERY]
+HitPoints = 1200
+TrashCost = 20
+BuildTime = 3000
+PowerUsage = 10
+InitialCount = 2			; how many refineries do you start with
+
+[GARAGE]
+HitPoints = 1500
+TrashCost = 30
+BuildTime = 2000
+PowerUsage = 20
+Units = Gatling Car, Flame Bike, Mechanic, Fire Truck
+
+[ADV_GARAGE]
+Requires = Garage
+HitPoints = 2000
+TrashCost = 30
+BuildTime = 2000
+PowerUsage = 30
+Units = Tank Car, Flame Tank, Semi, Gunship, Zeppelin
+
+[BARRACKS]
+HitPoints = 1200
+TrashCost = 40
+BuildTime = 1500
+PowerUsage = 20
+Units = Peacekeeper, Stinger
+
+[HUMAN_CHAMBER]
+Requires = Captured Hut
+HitPoints = 1200
+TrashCost = 30
+BuildTime = 3000
+PowerUsage = 20
+Units = Amplicon, Karkino
+PeopleRate = 4500
+TrashCostFactor = 1.5
+PeopleCostFactor = 1.0
+BuiltTimeFactor = 1.5
+
+[WINDMILL]
+HitPoints = 600
+TrashCost = 20
+BuildTime = 1000
+PowerOutput = 120
+InitialCount = 2			; how many windmills do you start with
+
+[KINETIC_DAMAGE_UPGRADE]
+DamageUpgradeTypes = Piercing, Concussive  ; this building upgrades these weapon classes
+Requires = Garage
+HitPoints = 1000
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 15
+TechUsageScaled = On
+
+[KINETIC_RANGE_UPGRADE]
+RangeUpgradeTypes = Piercing, Concussive
+Requires = Garage
+HitPoints = 1000
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 15
+TechUsageScaled = On
+
+[COMBUSTIVE_DAMAGE_UPGRADE]
+DamageUpgradeTypes = Flame, Explosive
+Requires = Garage
+HitPoints = 1200
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 15
+TechUsageScaled = On
+Research = Sticky Bomb, EMP Grenade
+
+[COMBUSTIVE_RANGE_UPGRADE]
+RangeUpgradeTypes = Flame, Explosive
+Requires = Garage
+HitPoints = 800
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 15
+TechUsageScaled = On
+
+[COMBUSTIVE_AREA_UPGRADE]
+AreaUpgradeTypes = Flame, Explosive
+Requires = Garage
+HitPoints = 1500
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 15
+TechUsageScaled = On
+
+[FIRE_STATION]
+Requires = Garage
+HitPoints = 1500
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 15
+TechsInitial = 3
+TechProductionTime = 6500
+Research = Capture
+
+[MECHANIC_DEPOT]
+Requires = Garage
+HitPoints = 1200
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 15
+TechsInitial = 3
+TechProductionTime = 9000
+
+[REPAIR_STATION]
+HitPoints = 1500
+TrashCost = 10
+BuildTime = 10000
+PowerUsage = 10
+HealRange = 18
+HealRate  = 20.0
+
+[NITRO_LAB]
+Requires = Garage
+HitPoints = 800
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 15
+NitroUpgradeFactor = 0.5   ; does not affect mutant speed upgrade
+TechUsageScaled = On
+TechsInitial = 8
+Research = Target Tracking
+
+[RUN_AND_GUN_RESEARCH]
+HitPoints = 1200
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 15
+RunAndGunSpray = 3.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 0.25, 0 ; http://forums.inhumangames.com/viewtopic.php?t=7214
+ChanceOfPenalty = 1.0, 0.7, 0.5, 0.4, 0.35, 0.325
+TechUsageScaled = On
+TechProductionTime = 4500
+Research = Turret Rotation Speed
+Requires = Garage
+
+[ADV_MATERIALS]
+Requires = Advanced Garage
+HitPoints = 800
+TrashCost = 40
+BuildTime = 4000
+PowerUsage = 15
+TechUsageScaled = On
+Research = Piercing Resistance, Flame Resistance, Concussive Resistance
+
+[ENGINEERING_RESEARCH]
+GameAge = 0
+HitPoints = 1500
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 15
+Research = Steep Roads
+
+[WALL]
+HitPoints = 2000
+TrashCost = 2
+BuildTime = 1000
+
+[HUMAN_GATE]
+HitPoints = 8000
+TrashCost = 10
+BuildTime = 5000
+
+[ROAD]
+HitPoints = 98000
+TrashCost = 0 ; must be zero
+BuildTime = 40
+
+;----------------- MUTANT BUILDINGS -----------------
+
+[FOUNTAIN]
+HitPoints = 750
+TrashCost = 40
+BuildTime = 15000
+PowerUsage = 30
+HealRange = 13
+HealRate  = 12.0
+UpgradeDuration = 100
+FireFieldRange = 0
+
+[FIRE_DOME]
+HitPoints = 1500
+TrashCost = 20
+BuildTime = 6500
+PowerUsage = 40
+UpgradeDuration = 100
+FireFieldRange = 4
+AttackClass = Flame
+AttackDamage = 11.5, 13.5, 15.5, 16.5, 17.5, 18.5, 19.0
+AttackRange = 12,13,14,15
+AttackRangeUpgradeOverride	= 0.5	; how range upgrades improve this weapon
+AttackArea = 0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.75
+RunAndGun = off
+HitAir = on
+HitGround = off
+AttackMinRange = 0.0		; Allow armed hut to attack directly above it
+TurretRotation = 2.0
+RateOfFireStart	= 10		; give some time for effect to start up
+RateOfFireContinue = 50
+AccuracyAir = 0.5, 0.8, 0.9, 1.0, 0.9, 0.8, 0.5, 0.4, 0.3, 0.2, 0.1, 0.05, 0.0
+Research = Flame Wall, Implosion, Anti-Air
+
+[POWER_PLANT]
+HitPoints = 2000
+TrashCost = 80
+BuildTime = 3000
+PowerOutput = 250
+Research = Detection
+
+[CAPTURED_HUT]
+HitPoints = 1200
+TrashCost = 20
+BuildTime = 3000
+PowerUsage = 10
+Units = Thrall
+InitialCount = 2			; how many captured huts do you start with
+
+[DISPOSAL]
+HitPoints = 600
+TrashCost = 20
+BuildTime = 1000
+PowerUsage = 5
+InitialCount = 2			; how many disposals do you start with
+ConcurrentUnloaders = 1		; 0 for infinite
+
+[CHAMBER]
+HitPoints = 1200
+TrashCost = 30
+BuildTime = 2000
+PowerUsage = 20
+Units = Extender, Mind Blaster, Brawler
+
+[TEMPLE]
+Requires = Chamber
+HitPoints = 2000
+TrashCost = 30
+BuildTime = 2000
+PowerUsage = 20
+Units = Amplicon, Chieftain, Gate Twins, Karkino, Protec
+
+[MUTANT_GARAGE]
+Requires = Refinery
+HitPoints = 1200
+TrashCost = 30
+BuildTime = 3000
+PowerUsage = 20
+Units = Tank Car, Flame Tank
+GasRate = 1500
+TrashCostFactor = 1.0
+GasCostFactor = 1.0
+BuiltTimeFactor = 1.0
+
+[ROACH_BEACON]
+HitPoints = 1200
+TrashCost = 40
+BuildTime = 1500
+PowerUsage = 20
+Units = Roach
+Research = Roach Shell, Clench
+
+[WARP_RESEARCH]
+Requires = Chamber
+GameAge = 2
+HitPoints = 1200
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 15
+Research = Levitation, Teleportation
+
+[PROTEC_UPGRADE]
+Requires = Temple
+HitPoints = 800
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 15
+Research = Protec Piercing Resistance, Protec Flame Resistance, Protec Concussive Resistance
+
+[AMPLICON_UPGRADE]
+Requires = Chamber
+HitPoints = 750
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 15
+TechsInitial = 3
+TechProductionTime = 12000
+Research = Slowness, Madness, Emp Grenade, Forced Descent
+
+[EXTENDER_UPGRADE]
+Requires = Chamber
+HitPoints = 1200
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 15
+TechsInitial = 3
+TechProductionTime = 12000
+Research = Taunt, Brawler Skin
+
+[KARKINO_UPGRADE]
+Requires = Chamber
+HitPoints = 1300
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 15
+TechsInitial = 3
+TechProductionTime = 15000
+Research = Acid Bomb, Selective Fire
+
+; TODO remove this
+[CHIEFTAIN_UPGRADE]
+Requires = Temple
+HitPoints = 1200
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 15
+TechsInitial = 3
+TechProductionTime = 8000
+
+[REMOTE_VIEWING]
+GameAge = 2
+HitPoints = 1000
+TrashCost = 20
+BuildTime = 4000
+PowerUsage = 15
+MoveRemoveView = 6000	; 100 =	one sec
+Research = Target Tracking
+
+[METABOLIC_RESEARCH]
+Requires = Chamber
+HitPoints = 800
+TrashCost = 20
+BuildTime = 4000
+Research = Enhanced Speed, Passive Repair
+
+[SUPER_TEMPLE]
+GameAge = 3
+HitPoints = 7000
+TrashCost = 20
+BuildTime = 6000
+PowerUsage = 180
+Units = Super Brawler
+
+[SUPER_TANK_FACTORY]
+GameAge = 3
+HitPoints = 7000
+TrashCost = 20
+BuildTime = 6000
+PowerUsage = 180
+Units = Super Tank
+
+
+;----------------- RESEARCH TECHS -----------------
+;
+; Research Tech Reference
+;
+;ResearchTime - how long it takes to research; 100 = one sec
+;TrashCost - amount of Trash required
+;GasCost - amount of Gas required
+
+[ROACH_SHELL]
+ResearchTime = 1500
+TrashCost = 25
+PeopleCost = 8
+FlameResistance = 2.0
+
+[ROACH_CLENCH]
+ResearchTime = 4500
+TrashCost = 50
+PeopleCost = 15
+TechsInitial = 3
+TechProductionTime = 10000
+
+[DETECTION]
+ResearchTime = 3000
+TrashCost = 50
+GasCost = 0
+DetectionRange = 10
+TechsInitial = 8
+TechProductionTime = 6500
+
+[IMPLOSION]
+ResearchTime = 7500
+TrashCost = 50
+PeopleCost = 0
+Factor = 0.33  ; new_area = area * factor, but area is never reduced below 1/8 tile
+TechsInitial = 1
+TechsReserve = 2
+TechProductionTime = 0
+
+[ANTIAIR]
+ResearchTime = 7500
+TrashCost = 25
+PeopleCost = 0
+Factor = 0.33  ; new_area = area * factor, but area is never reduced below 1/8 tile
+TechsInitial = 1
+TechsReserve = 2
+TechProductionTime = 0
+;HitPoints = 400
+;TrashCost = 20
+;PeopleCost = 3
+;BuildTime = 5500
+TopSpeed = 22.0
+Acceleration = 15.0
+Radius = 20.0
+AttackClass = Flame, Explosive
+AttackDamage = 30.0, 34.8, 39.6, 42.0, 44.4, 46.8, 48.0
+AttackRange = Short
+AttackArea = 1.5, 2.0, 2.4, 2.8, 3.0, 3.2, 3.4, 3.5
+RateOfFireStart	= 0 ; has target tracking by default
+RateOfFireContinue = 300
+RateOfFireStart_Moving	= 0
+RateOfFireContinue_Moving = 450
+AccuracyGround = -1
+AccuracyAir = -1
+CanUseGrenades = on
+DisruptionDuration = 800
+AfterburnStructures = 0.25	; what ratio of damage is done as afterburn for structures
+AfterburnUnits = 0.05		; for units -- the afterburn really only kicks in if DPS > FireBurnDamage
+TechUsageScore = 1.0
+
+[BRAWLER_SKIN]
+ResearchTime = 4500
+TrashCost = 50
+PeopleCost = 5
+FlameResistance = 3.71429
+
+[BRAWLER_TAUNT]
+ResearchTime = 4500
+TrashCost = 75
+TechProductionTime = 6000
+
+[STEEP_ROADS]
+ResearchTime = 1500
+TrashCost = 25
+GasCost = 15
+TimePerSegment = 400   ; Time it takes to make a steep road piece.  100 = one sec, total time is divided by number of upgrades
+TechsInitial = 8
+
+[TARGET_TRACKING]
+ResearchTime = 4500
+TrashCost = 40
+GasCost = 0
+PeopleCost = 0
+SprayWithoutTT =  5.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 0.25, 0 ; http://forums.inhumangames.com/viewtopic.php?t=7214
+ChanceOfPenalty = 0.2 ; ratio from 0 to 1. 1.0 means TT has no benefit, 0.0 means the penalty of SprayWithoutTT will never used for units with TT.  0.5 means 50%/50% chance.
+TechUsageScaled = On
+
+[LEVITATION]
+ResearchTime = 9000
+TrashCost = 50
+PeopleCost = 0
+Duration = 1200, 2000, 2800, 3200 ; duration at each level, 100 = one sec
+Cooldown = 2500 ; 100 = one sec
+TechUsageScaled = On
+TechsInitial = 10
+TechProductionTime = 1500
+
+[FIRETRUCK_CAPTURE]
+ResearchTime = 4500
+TrashCost = 25
+GasCost = 15
+TechsInitial = 3
+TechProductionTime = 9000
+
+[TELEPORT]
+ResearchTime = 9000
+TrashCost = 25
+DamageFactor = 1.0		; how much extra damage do unit recieve while they are teleporting, 1.0 means is same as normal damage.
+Cooldown = 2500			; 100 = one sec
+TimePhaseInRatio = 0.1		; how of of the total time is spent phasing in?  First units phase-out, then they phase-in.
+TimeBasis = 6000.0		; time = TimeBasis / ((upgrades ^ TimeExponent) + TimeDivisorConstant)
+TimeExponent = 2.0
+TimeDivisorConstant = 8.0
+TimeMin = 45.0			; total time is never less than this
+RangePerLevel = 30.0
+TechUsageScaled = On
+TechsInitial = 10
+TechProductionTime = 1500
+
+[ENHANCED_SPEED]
+ResearchTime = 1500
+TrashCost = 0
+PeopleCost = 0
+SpeedNotActive = 0.3334	; When speed is not active, units are still faster.  This tells how fast in relation to Nitro upgrades.
+SpeedActive = 1.0		; When speed is active, this tells how fast in relation to Nitro upgrades.
+Duration = 1000			; 100 = one sec, when speed is active, this is how long it stays in the active state.
+Cooldown = 3000			; 100 = one sec
+TechUsageScaled = On
+TechsInitial = 8
+
+[PASSIVE_HEAL]
+ResearchTime = 1500
+TrashCost = 0
+PeopleCost = 0
+; not used: PassiveHealTime = 4.0, 3.25, 2.5, 2.0, 1.75, 1.65, ; full-heal time in minutes
+PassiveHealInitial = 6.0	; passive full-heal time = PassiveHealInitial / ( 1 + (upgrades / PassiveHealDecay))
+PassiveHealDecay = 3.0
+ResumeAfterBattleTime = 1500     ; while battling, repair is suspended.  X seconds after battle, it passive heal resumes.  100 = one sec.
+TechUsageScaled = On
+TechsInitial = 10
+
+[FLAME_WALL]
+ResearchTime = 7500
+TrashCost = 50
+PeopleCost = 0
+TechsInitial = 1
+TechsReserve = 2
+TechProductionTime = 0
+
+[KARKINO_ACID]
+ResearchTime = 4500
+TrashCost = 50
+PeopleCost = 2
+TechsInitial = 3
+TechProductionTime = 6500
+
+[EMP_GRENADE]
+ResearchTime = 4500
+TrashCost = 25
+GasCost = 0
+Range = 6.0
+Area = 3.5
+Duration = 1600
+ShotSpeed = 3.0
+TechsInitial = 1
+TechProductionTime = 6500
+
+[FORCED_DESCENT]
+ResearchTime = 4500
+TrashCost = 25
+GasCost = 0
+Range = 6.0
+Area = 5.5
+Duration = 1000
+ShotSpeed = 6.0
+TechsInitial = 1
+TechProductionTime = 6500
+
+[STICKY_BOMB]
+ResearchTime = 4500
+TrashCost = 50
+GasCost = 0
+Range = 6
+Area = 1.5
+Damage = 350
+Timer = 800   ; time from when it lands to when it blows up
+ShotSpeed = 10.0
+AccuracyGround = -1 ; perfect accuracy
+TechsInitial = 1
+TechProductionTime = 6500
+
+[SLOWNESS]
+ResearchTime = 4500
+TrashCost = 50
+PeopleCost = 0
+Range = 6.0
+Area = 4.5
+Duration = 800
+ShotSpeed = 3.0
+TechsInitial = 1
+TechProductionTime = 6500
+
+[MADNESS]
+ResearchTime = 4500
+TrashCost = 50
+PeopleCost = 0
+Range = 6.0
+Area = 1.25
+ShotSpeed = 3.0
+Duration = 1500  ; duration is scaled based on radius of unit...larger units are mad for a shorter time, this duration is for units of radius 40
+TechsInitial = 1
+TechProductionTime = 6500
+
+[SELECTIVE_FIRE]
+ResearchTime = 1500
+TrashCost = 50
+PeopleCost = 0
+TechUsageScaled = On
+
+[ROTATION_SPEED]
+ResearchTime = 3000
+TrashCost = 25
+GasCost = 0
+TechUsageScaled = On
+
+[PROTEC_RESIST_PIERCE]
+ResearchTime = 1500
+TrashCost = 0
+PeopleCost = 0
+Upgrades = 2.0  ;  how much resistance is given
+TechsInitial = 3
+TechProductionTime = 15000
+
+[PROTEC_RESIST_FLAME]
+ResearchTime = 1500
+TrashCost = 0
+PeopleCost = 0
+Upgrades = 2.0  ;  how much resistance is given
+TechsInitial = 3
+TechProductionTime = 15000
+
+[PROTEC_RESIST_BLUNT] ; aka concussive
+ResearchTime = 1500
+TrashCost = 0
+PeopleCost = 0
+Upgrades = 2.0  ;  how much resistance is given
+TechsInitial = 3
+TechProductionTime = 15000
+
+[ADVMAT_RESIST_PIERCE]
+ResearchTime = 1500
+TrashCost = 0
+GasCost = 0
+Upgrades = 1.0 ;  how much resistance if given
+TechUsageScaled = On
+TechProductionTime = 5000
+
+[ADVMAT_RESIST_FLAME]
+ResearchTime = 1500
+TrashCost = 0
+GasCost = 0
+Upgrades = 1.0
+TechUsageScaled = On
+TechProductionTime = 5000
+
+[ADVMAT_RESIST_BLUNT] ; aka concussive
+Requires = Advanced Garage
+ResearchTime = 1500
+TrashCost = 0
+GasCost = 0
+Upgrades = 1.0
+TechUsageScaled = On
+TechProductionTime = 5000
+
+
+;----------------- BUILD SITES -----------------
+
+[HUMAN_BUILD_SITES]
+
+; define locations in the build UI - use None as a spacer
+Basic0 = Garage
+Basic1 = Windmill
+Basic2 = Flame Tower
+Basic3 = Road
+Basic4 = Wall
+; row 2
+Basic5 = Advanced Garage
+Basic6 = Salvage Yard
+Basic7 = Flak Tower
+Basic8 = Gate
+Basic9 = Pipe
+
+; these require hut/gas sites
+Gas0 = Refinery
+Hut1 = None
+Hut2 = Repair Station
+Hut3 = Barracks
+Hut4 = Human Chamber
+; row 2
+Hut5 = None
+Hut6 = None
+Hut7 = None
+Hut8 = None
+Hut9 = None
+
+; these require precious metal sites
+Metal0 = Advanced Materials Lab
+Metal1 = None
+Metal2 = Kinetic Damage Upgrade
+Metal3 = Combustive Damage Upgrade
+Metal4 = None
+; row 2
+Metal5 = None
+Metal6 = None
+Metal7 = Kinetic Range Upgrade
+Metal8 = Combustive Range Upgrade
+Metal9 = None
+
+; these require precious toxic waste sites
+Toxic0 = Mechanic Depot
+Toxic1 = Nitro Lab
+Toxic2 = Run-And-Gun Research
+Toxic3 = Combustive Area Upgrade
+SuperToxic4 = Super Tank Factory
+; row 2
+Toxic5 = None
+Toxic6 = None
+Toxic7 = Fire Station
+Toxic8 = Engineering Research
+SuperToxic9 = Super Gun
+
+[MUTANT_BUILD_SITES]
+
+; define locations in the build UI - use None as a spacer
+Basic0 = Chamber
+Basic1 = Disposal
+Basic2 = Fire Dome
+Basic3 = None
+Basic4 = None
+; row 2
+Basic5 = Temple
+Basic6 = None
+Basic7 = Power Plant
+Basic8 = None
+Basic9 = Pipe
+
+; these require hut/gas sites
+Hut0 = Captured Hut
+Gas1 = Fountain
+Gas2 = Roach Beacon
+Gas3 = Remote Viewing
+Gas4 = Mutant Garage
+; row 2
+Gas5 = None
+Gas6 = None
+Gas7 = None
+Gas8 = None
+Gas9 = None
+
+; these require precious metal sites
+Metal0 = Amplicon Upgrade
+Metal1 = Extender Upgrade
+Metal2 = Karkino Upgrade
+Metal3 = None
+Metal4 = None
+; row 2
+Metal5 = None
+Metal6 = None
+Metal7 = None
+Metal8 = None
+Metal9 = None
+
+; these require toxic waste sites
+Toxic0 = None
+Toxic1 = Warp Research
+Toxic2 = Metabolic Research
+Toxic3 = Protec Upgrade
+SuperToxic4 = Pipe Torpedo
+; row 2
+Toxic5 = None
+Toxic6 = None
+Toxic7 = None
+Toxic8 = None
+SuperToxic9 = Super Temple
+
+
+[PLANT_THE_BOMB]
+
+UnitSpeedFactor = 2.0					; changes the speed of all units 
+UnitSpeedFactor_Carrying = 0.5			; applied when carrying the bomb
+UnitBuyPeriod = 5.0						; in secs
+MaxRoundTime = 240.0                    ; in secs
+RoundRespawnTime = 4.0                  ; in secs - time between end of one round and start of another
+CountdownPlantedBombExplodes = 24.0     ; in secs
+ClearUnitsEachRound = on				; if on, units are removed at the end of each round
+GlobalHitPointModifier_Units = 0.5
+PlayerPopLimit = 200                     ; player's pop limit (this is not currently working correctly)
+ExplosionDamage = 150
+ExplosionArea = 10
+ResearchHuman = Target Tracking(15 0), Nitro Lab(20 6), Run-And-Gun Research(20 6), Turret Rotation Speed(8 0), Kinetic Damage Upgrade(15 0), Kinetic Range Upgrade(15 0), Combustive Damage Upgrade(15 0), Combustive Range Upgrade(15 0), Combustive Area Upgrade(15 0), Sticky Bomb(15 0), EMP Grenade(15 0), Mechanic Depot(20 6), Fire Station(20 6)
+ResearchMutant = Target Tracking(15 0), Enhanced Speed(20 2), Passive Repair(20 2), Amplicon Upgrade(20 2), Extender Upgrade(20 2), Karkino Upgrade(20 2), Acid Bomb(15 0), Slowness(15 0), Madness(15 0), Emp Grenade(15 0), Taunt(15 0), Brawler Skin(15 0), Clench(20 2), Roach Shell(15 0), Levitation(15 0), Teleportation(15 0), Selective Fire(8 0)
+
+
+;  resources given at start of game
+HumanTrashStartGame = 150
+MutantTrashStartGame = 150
+HumanGasStartGame = 50
+MutantPeopleStartGame = 18
+
+;  resources given for winning a round (list is used for winning streaks)
+HumanTrash_WinRound =   140, 130, 125, 120, 120
+MutantTrash_WinRound =  140, 130, 125, 120, 120
+HumanGas_WinRound =      46,  42,  39,  37,  36, 36
+MutantPeople_WinRound =  16,  14,  13,  12,  12
+
+;  resources given for losing a round (list is used for losing streaks)
+HumanTrash_LoseRound =  160, 170, 175, 180, 180
+MutantTrash_LoseRound = 160, 170, 175, 180, 180
+HumanGas_LoseRound =     54,  57,  59,  60,  60
+MutantPeople_LoseRound = 22,  25,  28,  30,  30
+
+[BUILD_PLAN_1]
+
+; balanced
+
+UnitClass = Gatling Car, Extender    : continious = true   : required = true : weight = 20
+UnitClass = Gatling Car, Mind Blaster     : continious = true   : required = true : weight = 15
+UnitClass = Gatling Car, Brawler     : continious = true   : required = true : weight = 12
+UnitClass = Tank Car, Mind Blaster     : continious = true   : required = true : weight = 12
+UnitClass = Flame Tank, Karkino     : continious = true   : required = true : weight = 12
+UnitClass = Fire Truck, Amplicon    : continious = true   : required = true : weight = 5
+
+Tech = Enhanced Speed             : required = true : 10, 20, 30, 40, 50, 60, 70
+Tech = Piercing Resistance        : required = true  : 10, 20, 30, 40, 50, 60, 70
+Tech = Flame Resistance           : required = true  : 20, 30, 40, 50, 60, 70, 80
+Tech = Concussive Resistance           : required = true  : 35, 55, 75, 90
+Tech = Flame Wall                  : required = true  : 5, -1
+Tech = Implosion                  : required = true  : 25, -1
+Tech = Selective Fire                  : required = true  : 15, -1
+Tech = Capture                : required = true  : 32, -1
+Tech = Passive Repair                 : required = true  : 5, 15, 30, 45, 70
+Tech = Detection              : required = true  : 15, -1
+Tech = Brawler Skin          : required = true : 30, -1
+
+
+Upgrade = Run-And-Gun Research    : required = true : 2, -1
+Upgrade = Nitro Lab               : required = true : 15, 20, 30, 45, 55, 65
+Upgrade = Kinetic Damage Upgrade  : required = true : 10, 25, 30, 40, 50, 60
+Upgrade = Combustive Damage Upgrade  : required = true : 30, 45, 60
+Upgrade = Kinetic Range Upgrade   : required = true : 15, 36, 72, -1
+Upgrade = Combustive Range Upgrade   : required = true : 16, 32, 64, -1
+Upgrade = Extender Upgrade        : required = true : 2, 15, 35, 40, 50, 60, 70
+Upgrade = Amplicon Upgrade        : required = true : 8, 15, 35, 50, 60, 70, 80, 90
+Upgrade = Fire Station      : required = true : 20, 35, 40, 50, 60, 70
+Upgrade = Karkino Upgrade        : required = true : 10, 25, 38, 55, 70, 80, 90, 100
+
+
+[BUILD_PLAN_2]
+
+; balanced
+
+UnitClass = Gatling Car, Roach    : continious = true   : required = true : weight = 17
+UnitClass = Gatling Car, Extender    : continious = true   : required = true : weight = 20
+UnitClass = Tank Car, Brawler    : continious = true   : required = true : weight = 9
+UnitClass = Flame Tank, Brawler    : continious = true    : required = true : weight = 9
+
+
+Tech = Piercing Resistance        : required = true  : 10, 20, 30, 40, 50, 60
+Tech = Flame Resistance           : required = true  : 25, 45, 80, 90, 120
+Tech = Concussive Resistance        : required = false  : 20, 50, 80
+Tech = Flame Wall                  : required = true  : 10, -1
+Tech = Implosion                  : required = true  : 25, -1
+Tech = Passive Repair                 : required = true  : 4, -1
+Tech = Enhanced Speed             : required = true : 10, 20, 30, 40, 50, 60, 70
+Tech = Detection              : required = true  : 35, -1
+Tech = Brawler Skin          : required = true : 10, -1
+Tech = Clench          : required = true : 1, 10, -1
+Tech = Roach Shell        : required = true : 22, -1
+
+
+Upgrade = Run-And-Gun Research    : required = true : 2, -1
+Upgrade = Nitro Lab               : required = true : 15, 20, 30, 45, 55, 65
+Upgrade = Kinetic Damage Upgrade  : required = true : 10, 20, 35, 45, 55, 65
+Upgrade = Kinetic Range Upgrade   : required = true : 15, 25, 35, 45, 55, 65
+Upgrade = Extender Upgrade        : required = true : 2, 15, 25, 30, 35, 40, 45
