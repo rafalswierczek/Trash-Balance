@@ -358,7 +358,7 @@ TechUsageScore = 1.0
 
 [PEACE_KEEPER]
 CountProduced = 2 ; how many units are made at once
-HitPoints = 250
+HitPoints = 350
 TrashCost = 0
 GasCost	= 0
 BuildTime = 8000, 16000 ; build times, second number is for when factory is 'old'
@@ -368,8 +368,8 @@ Acceleration = 15.0
 Radius = 15.0
 Radius_Moving = 20.0
 AttackClass = Piercing
-AttackDamage = 14.0, 16.0, 18.0, 20.0, 22.0, 25.0, 28.5
-AttackRange = 5,6,7,8
+AttackDamage = 16.0, 18.0, 20.0, 22.0, 24.0, 26.0, 28.0
+AttackRange = 6,7,8,9
 AttackArea = 0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.75
 RateOfFireStart	= 50
 RateOfFireContinue = 150
@@ -382,7 +382,7 @@ TechUsageScore = 0.25
 
 [STINGER]
 CountProduced = 2 ; how many units are made at once
-HitPoints = 250
+HitPoints = 300
 TrashCost = 25
 GasCost = 6
 BuildTime = 12000
@@ -392,10 +392,10 @@ Acceleration = 15.0
 Radius = 15.0
 Radius_Moving = 20.0
 AttackClass = Explosive, Concussive
-AttackDamage = 60.0, 70.0, 80.0, 85.0, 90.0, 95.0, 97.5
+AttackDamage = 70.0, 80.0, 90.0, 100.0, 110.0, 120.0, 130.0
 AttackMinRange = 3.0
 AttackRange = Long
-AttackArea = 0.1, 0.175, 0.25, 0.325, 0.4, 0.45
+AttackArea = 0.2, 0.3, 0.4, 0.5, 0.6, 0.7
 RateOfFireStart	= 100
 RateOfFireContinue = 500
 RateOfFireContinue_Moving = 750
@@ -406,7 +406,7 @@ PopLimitScore = 0.75
 TechUsageScore = 0.5
 
 [GUNSHIP]
-HitPoints = 600
+HitPoints = 800
 TrashCost = 40
 GasCost	= 12
 BuildTime = 6000
@@ -414,9 +414,9 @@ TopSpeed = 28.0
 Acceleration = 17.5
 Radius = 60.0
 AttackClass = Piercing
-AttackDamage = 11.5, 13.5, 15.5, 16.5, 17.5, 18.5, 19.0
+AttackDamage = 12.0, 14.0, 16.0, 18.0, 20.0, 22.0, 24.0
 AttackRange = Medium
-AttackArea = 0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.75
+AttackArea = 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8
 TurretRotation = 2.0
 RateOfFireStart	= 10
 RateOfFireContinue = 50
@@ -440,7 +440,7 @@ TechUsageScore = 1.0
 ;----------------- MUTANT UNITS	-----------------
 
 [ROACH]
-HitPoints = 300
+HitPoints = 280
 BuildTime = 6000, 12000 ; spawn rate, second number is for when beacon is 'old'
 ProductionDropAfter = 4 ; after X roaches are made, the beacon's production slows
 TopSpeed = 30.0
@@ -460,7 +460,7 @@ PopLimitScore = 0.75
 TechUsageScore = 0.5
 
 [THRALL]
-HitPoints = 400
+HitPoints = 350
 TrashCost = 20
 PeopleCost = 1
 BuildTime = 2500
@@ -946,7 +946,7 @@ RunAndGunSpray = 3.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
 ChanceOfPenalty = 1.0, 0.7, 0.5, 0.4, 0.35, 0.325
 TechUsageScaled = On
 TechProductionTime = 4500
-Research = Turret Rotation Speed
+Research = Passive Repair, Turret Rotation Speed
 Requires = Garage
 
 [ADV_MATERIALS]
@@ -1602,7 +1602,7 @@ UnitClass = Gatling Car, Mind Blaster     : continious = true   : required = tru
 UnitClass = Gatling Car, Brawler     : continious = true   : required = true : weight = 12
 UnitClass = Tank Car, Mind Blaster     : continious = true   : required = true : weight = 12
 UnitClass = Flame Tank, Karkino     : continious = true   : required = true : weight = 12
-UnitClass = Fire Truck, Amplicon    : continious = true   : required = true : weight = 5
+UnitClass = Tank Car, Amplicon    : continious = true   : required = true : weight = 5
 
 Tech = Enhanced Speed             : required = true : 10, 20, 30, 40, 50, 60, 70
 Tech = Piercing Resistance        : required = true  : 10, 20, 30, 40, 50, 60, 70
@@ -1625,7 +1625,6 @@ Upgrade = Kinetic Range Upgrade   : required = true : 15, 36, 72, -1
 Upgrade = Combustive Range Upgrade   : required = true : 16, 32, 64, -1
 Upgrade = Extender Upgrade        : required = true : 2, 15, 35, 40, 50, 60, 70
 Upgrade = Amplicon Upgrade        : required = true : 8, 15, 35, 50, 60, 70, 80, 90
-Upgrade = Fire Station      : required = true : 20, 35, 40, 50, 60, 70
 Upgrade = Karkino Upgrade        : required = true : 10, 25, 38, 55, 70, 80, 90, 100
 
 
@@ -1636,7 +1635,7 @@ Upgrade = Karkino Upgrade        : required = true : 10, 25, 38, 55, 70, 80, 90,
 UnitClass = Gatling Car, Roach    : continious = true   : required = true : weight = 17
 UnitClass = Gatling Car, Extender    : continious = true   : required = true : weight = 20
 UnitClass = Tank Car, Brawler    : continious = true   : required = true : weight = 9
-UnitClass = Flame Tank, Brawler    : continious = true    : required = true : weight = 9
+UnitClass = Gunship, Brawler    : continious = true    : required = true : weight = 9
 
 
 Tech = Piercing Resistance        : required = true  : 10, 20, 30, 40, 50, 60
